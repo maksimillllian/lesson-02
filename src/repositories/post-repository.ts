@@ -2,7 +2,7 @@ import {db} from "../db/db";
 
 
 type post = {
-    id: number,
+    id: string,
     title: string,
     shortDescription: string,
     content: string
@@ -12,7 +12,7 @@ export class PostRepository{
     static getAll(){
         return db.posts;
     }
-    static getById(id: number){
+    static getById(id: string){
         return db.posts.find((b) => b.id === id)
 
     }
@@ -20,7 +20,7 @@ export class PostRepository{
         db.posts.push(post);
         return post;
     }
-    static deletePost(id: number) {
+    static deletePost(id: string) {
         const indexToRemove = db.posts.findIndex((p) => p.id === id);
 
         if (indexToRemove !== -1) {
@@ -35,9 +35,9 @@ export class PostRepository{
     static updatePost(post: post){
         const indexOfPost = db.posts.findIndex((p) => p.id === post.id);
         if(indexOfPost === -1){
-            return 204
+            return 404
         }
         db.posts[indexOfPost] = post;
-        return 404
+        return 204
     }
 }

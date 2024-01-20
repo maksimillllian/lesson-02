@@ -13,7 +13,7 @@ postRoute.get('/',(req, res) => {
 postRoute.post('/', authMiddleware, postValidation(),(req: Request, res: Response) => {
     const {title, shortDescription, content} = req.body
     const newPost = {
-        id: +(new Date()),
+        id: String(new Date().getTime()),
         title,
         shortDescription,
         content
@@ -23,7 +23,7 @@ postRoute.post('/', authMiddleware, postValidation(),(req: Request, res: Respons
 
 })
 postRoute.get('/:id',(req: Request, res: Response) => {
-    const post = PostRepository.getById(+req.params.id)
+    const post = PostRepository.getById(req.params.id)
     if(post) {
         res.status(200).send(post)
     }else{
@@ -33,7 +33,7 @@ postRoute.get('/:id',(req: Request, res: Response) => {
 postRoute.put('/:id', authMiddleware, postValidation(),(req: Request, res: Response) => {
     const {title, shortDescription, content} = req.body
     const updatedPost = {
-        id: +req.params.id,
+        id: req.params.id,
         title,
         shortDescription,
         content
@@ -45,7 +45,7 @@ postRoute.put('/:id', authMiddleware, postValidation(),(req: Request, res: Respo
     res.sendStatus(404)
 })
 postRoute.delete('/:id', authMiddleware,(req: Request, res: Response) => {
-    const deletedPost = PostRepository.deletePost(+req.params.id)
+    const deletedPost = PostRepository.deletePost(req.params.id)
     if(deletedPost === 204){
         res.sendStatus(204)
     }

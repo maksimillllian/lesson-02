@@ -19,7 +19,7 @@ postRoute.post('/', authMiddleware, postValidation(),(req: Request, res: Respons
         content
     }
     const createdPost = PostRepository.createPost(newPost)
-    res.send(createdPost)
+    res.status(201).send(createdPost)
 
 })
 postRoute.get('/:id',(req: Request, res: Response) => {

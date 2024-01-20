@@ -19,7 +19,7 @@ blogRoute.post('/', authMiddleware, blogValidation(),(req: Request, res: Respons
         websiteUrl
     }
     const createdBlog = BlogRepository.createBlog(newBlog)
-    res.send(createdBlog)
+    res.status(201).send(createdBlog)
 
 })
 blogRoute.get('/:id',(req: Request, res: Response) => {

@@ -13,7 +13,9 @@ export class BlogRepository{
     }
     static getById(id: string){
         return db.blogs.find((b) => b.id === id)
-
+    }
+    static getNameById(id: string){
+        return db.blogs.find((b) => b.id === id)?.name
     }
     static createBlog(blog: blog){
         db.blogs.push(blog);

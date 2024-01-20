@@ -3,6 +3,7 @@ import {authMiddleware} from "../middlewares/auth/auth-middleware";
 import {postValidation} from "../validators/post-validators";
 import {PostRepository} from "../repositories/post-repository";
 import {Request, Response} from "express";
+import {BlogRepository} from "../repositories/blog-repository";
 
 export const postRoute = Router({})
 
@@ -11,13 +12,14 @@ postRoute.get('/',(req, res) => {
     res.send(posts)
 })
 postRoute.post('/', authMiddleware, postValidation(),(req: Request, res: Response) => {
-    const {title, shortDescription, content, blogId, blogName} = req.body
+    const {title, shortDescription, content, blogId} = req.body
     const newPost = {
         id: String(new Date().getTime()),
         title,
         shortDescription,
         content,
-        blogId
+        blogId,
+        blogName: BlogRepository.getNameById(blogId)
     }
     const createdPost = PostRepository.createPost(newPost)
     res.status(201).send(createdPost)
@@ -38,7 +40,8 @@ postRoute.put('/:id', authMiddleware, postValidation(),(req: Request, res: Respo
         title,
         shortDescription,
         content,
-        blogId
+        blogId,
+        blogName: BlogRepository.getNameById(blogId)
     }
     const createdPost = PostRepository.updatePost(updatedPost)
     if(createdPost === 204){

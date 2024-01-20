@@ -7,6 +7,7 @@ type post = {
     shortDescription: string,
     content: string,
     blogId: string,
+    blogName: string
 }
 
 export class PostRepository{

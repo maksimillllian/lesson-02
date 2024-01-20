@@ -11,12 +11,14 @@ postRoute.get('/',(req, res) => {
     res.send(posts)
 })
 postRoute.post('/', authMiddleware, postValidation(),(req: Request, res: Response) => {
-    const {title, shortDescription, content} = req.body
+    const {title, shortDescription, content, blogId, blogName} = req.body
     const newPost = {
         id: String(new Date().getTime()),
         title,
         shortDescription,
-        content
+        content,
+        blogId,
+        blogName
     }
     const createdPost = PostRepository.createPost(newPost)
     res.status(201).send(createdPost)
@@ -31,12 +33,14 @@ postRoute.get('/:id',(req: Request, res: Response) => {
     }
 })
 postRoute.put('/:id', authMiddleware, postValidation(),(req: Request, res: Response) => {
-    const {title, shortDescription, content} = req.body
+    const {title, shortDescription, content, blogId, blogName} = req.body
     const updatedPost = {
         id: req.params.id,
         title,
         shortDescription,
-        content
+        content,
+        blogId,
+        blogName
     }
     const createdPost = PostRepository.updatePost(updatedPost)
     if(createdPost === 204){

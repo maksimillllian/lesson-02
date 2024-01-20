@@ -1,18 +1,30 @@
 import {body} from "express-validator";
+import {BlogRepository} from "../repositories/blog-repository";
+import {InputValidationMiddleware} from "../middlewares/inputValidation/input-validation-middleware";
 
-const nameValidator = body('name').isString().withMessage('Name must be string').trim().isLength({
+const titleValidator = body('title').isString().withMessage('title must be string').trim().isLength({
     min: 1,
-    max: 15
-}).withMessage('Incorrect name')
+    max: 30
+}).withMessage('Incorrect title')
 
-const descriptionValidator = body('description').isString().withMessage('Discription must be string').trim().isLength({
+const shortDescriptionValidator = body('shortDescription').isString().withMessage('shortDescription must be string').trim().isLength({
     min: 0,
-    max: 500
-}).withMessage('Incorrect description')
+    max: 200
+}).withMessage('Incorrect shortDescription')
 
-const websiteUrlValidator = body('websiteUrl').isString().withMessage('W ebsiteUrl must be string').trim().isLength({
+const contentValidator = body('content').isString().withMessage('content must be string').trim().isLength({
     min: 1,
-    max: 100    
-}).matches('^https://([a-zA-Z0-9_-]+\\.)+[a-zA-Z0-9_-]+(\\/[a-zA-Z0-9_-]+)*\\/?').withMessage('Incorrect websiteUrl')
+    max: 1000
+}).withMessage('Incorrect content')
 
-export const blogValidation = () => [nameValidator, descriptionValidator, websiteUrlValidator]
+const blogIdValidator = body('blogId').custom((value) => {
+    const blog = BlogRepository.getById(value);
+
+    if(!blog){
+        throw Error
+    }else{
+        return true
+    }
+})
+
+export const postValidation = () => [titleValidator, shortDescriptionValidator, contentValidator, blogIdValidator, InputValidationMiddleware]

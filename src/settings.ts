@@ -1,65 +1,67 @@
 import express, { Request, Response } from 'express';
 import {blogRoute} from "./routes/blog-route";
+import {postRoute} from "./routes/post-route";
 
 export const app = express();
 
 app.use(express.json());
 app.use('/blogs', blogRoute)
-const availableResolution = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160'];
-
- type VideoType = {
-     id: number;
-     title: string;
-     author: string;
-     canBeDownloaded: boolean;
-     minAgeRestriction: number | null;
-     createdAt: string;
-     publicationDate: string;
-     availableResolutions: typeof availableResolution;
- };
-
-export const videos: VideoType[] = [
-     {
-         id: 0,
-         title: 'string',
-         author: 'string',
-         canBeDownloaded: true,
-         minAgeRestriction: null,
-         createdAt: '2024-01-08T00:49:47.128Z',
-         publicationDate: '2024-01-08T00:49:47.128Z',
-         availableResolutions: ['P144'],
-     },
-     {
-         id: 1,
-         title: 'Example Video 1',
-         author: 'John Doe',
-         canBeDownloaded: true,
-         minAgeRestriction: 12,
-         createdAt: '2024-01-08T10:00:00.000Z',
-         publicationDate: '2024-01-08T10:00:00.000Z',
-         availableResolutions: ['P240', 'P480', 'P720'],
-     },
-     {
-         id: 2,
-         title: 'Sponge Bob',
-         author: 'Nickelodeon',
-         canBeDownloaded: true,
-         minAgeRestriction: 3,
-         createdAt: '2024-01-09T08:30:00.000Z',
-         publicationDate: '2024-01-09T08:30:00.000Z',
-         availableResolutions: ['P1080', 'P1440', 'P2160'],
-     },
-     {
-         id: 3,
-         title: 'Nature Documentary',
-         author: 'National Geographic',
-         canBeDownloaded: true,
-         minAgeRestriction: 8,
-         createdAt: '2024-01-10T15:45:00.000Z',
-         publicationDate: '2024-01-10T15:45:00.000Z',
-         availableResolutions: ['P360', 'P720', 'P1080'],
-     },
- ];
+app.use('/posts', postRoute)
+// const availableResolution = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160'];
+//
+//  type VideoType = {
+//      id: number;
+//      title: string;
+//      author: string;
+//      canBeDownloaded: boolean;
+//      minAgeRestriction: number | null;
+//      createdAt: string;
+//      publicationDate: string;
+//      availableResolutions: typeof availableResolution;
+//  };
+//
+// export const videos: VideoType[] = [
+//      {
+//          id: 0,
+//          title: 'string',
+//          author: 'string',
+//          canBeDownloaded: true,
+//          minAgeRestriction: null,
+//          createdAt: '2024-01-08T00:49:47.128Z',
+//          publicationDate: '2024-01-08T00:49:47.128Z',
+//          availableResolutions: ['P144'],
+//      },
+//      {
+//          id: 1,
+//          title: 'Example Video 1',
+//          author: 'John Doe',
+//          canBeDownloaded: true,
+//          minAgeRestriction: 12,
+//          createdAt: '2024-01-08T10:00:00.000Z',
+//          publicationDate: '2024-01-08T10:00:00.000Z',
+//          availableResolutions: ['P240', 'P480', 'P720'],
+//      },
+//      {
+//          id: 2,
+//          title: 'Sponge Bob',
+//          author: 'Nickelodeon',
+//          canBeDownloaded: true,
+//          minAgeRestriction: 3,
+//          createdAt: '2024-01-09T08:30:00.000Z',
+//          publicationDate: '2024-01-09T08:30:00.000Z',
+//          availableResolutions: ['P1080', 'P1440', 'P2160'],
+//      },
+//      {
+//          id: 3,
+//          title: 'Nature Documentary',
+//          author: 'National Geographic',
+//          canBeDownloaded: true,
+//          minAgeRestriction: 8,
+//          createdAt: '2024-01-10T15:45:00.000Z',
+//          publicationDate: '2024-01-10T15:45:00.000Z',
+//          availableResolutions: ['P360', 'P720', 'P1080'],
+//      },
+//  ];
 
 //
 // type RequestWithParams<P> = Request<P, unknown, unknown, unknown>;

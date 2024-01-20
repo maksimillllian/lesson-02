@@ -12,7 +12,9 @@ export const db = {
             id: '1',
             title: "test",
             shortDescription: "test",
-            content: "gg"
+            content: "gg",
+            blogId: '1',
+            blogName: "just a test"
         }
     ]
 }

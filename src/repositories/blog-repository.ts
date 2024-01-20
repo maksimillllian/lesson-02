@@ -31,12 +31,15 @@ export class BlogRepository{
 
     }
 
-    static updateBlog(blog: blog){
-        const indexOfBlog = db.blogs.findIndex((b) => b.id === blog.id);
-        if(indexOfBlog === -1){
-            return 204
+    static updateBlog(updatedBlog: blog): number {
+        const indexOfBlog = db.blogs.findIndex((b) => b.id === updatedBlog.id);
+
+        if (indexOfBlog !== -1) {
+            db.blogs[indexOfBlog] = updatedBlog;
+            return 204;
+        } else {
+            return 404;
         }
-        db.blogs[indexOfBlog] = blog;
-        return 404
     }
+
 }

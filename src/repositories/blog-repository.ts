@@ -1,7 +1,7 @@
 import {db} from "../db/db";
 
 type blog = {
-    id: number,
+    id: string,
     name: string,
     description: string,
     websiteUrl: string
@@ -11,7 +11,7 @@ export class BlogRepository{
     static getAll(){
         return db.blogs;
     }
-    static getById(id: number){
+    static getById(id: string){
         return db.blogs.find((b) => b.id === id)
 
     }
@@ -19,7 +19,7 @@ export class BlogRepository{
         db.blogs.push(blog);
         return blog;
     }
-    static deleteBlog(id: number) {
+    static deleteBlog(id: string) {
         const indexToRemove = db.blogs.findIndex((b) => b.id === id);
 
         if (indexToRemove !== -1) {

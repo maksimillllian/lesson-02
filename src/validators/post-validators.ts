@@ -25,6 +25,6 @@ const blogIdValidator = body('blogId').custom((value) => {
     }else{
         return true;
     }
-})
+}).withMessage('Invalid BlogId')
 
 export const postValidation = () => [titleValidator, shortDescriptionValidator, contentValidator, blogIdValidator, InputValidationMiddleware]

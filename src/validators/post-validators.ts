@@ -17,7 +17,7 @@ const contentValidator = body('content').isString().withMessage('content must be
     max: 1000
 }).withMessage('Incorrect content')
 
-const blogIdValidator = body('blogId').custom((value) => {
+const blogIdValidator = body('blogId').custom(async (value) => {
     const blog = BlogRepository.getById(value);
 
     if(!blog){

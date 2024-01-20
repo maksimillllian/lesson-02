@@ -21,9 +21,9 @@ const blogIdValidator = body('blogId').custom((value) => {
     const blog = BlogRepository.getById(value);
 
     if(!blog){
-        throw Error
+        throw Error('Invalid blogId');
     }else{
-        return true
+        return true;
     }
 })
 

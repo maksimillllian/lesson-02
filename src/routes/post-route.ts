@@ -17,8 +17,7 @@ postRoute.post('/', authMiddleware, postValidation(),(req: Request, res: Respons
         title,
         shortDescription,
         content,
-        blogId,
-        blogName
+        blogId
     }
     const createdPost = PostRepository.createPost(newPost)
     res.status(201).send(createdPost)
@@ -33,14 +32,13 @@ postRoute.get('/:id',(req: Request, res: Response) => {
     }
 })
 postRoute.put('/:id', authMiddleware, postValidation(),(req: Request, res: Response) => {
-    const {title, shortDescription, content, blogId, blogName} = req.body
+    const {title, shortDescription, content, blogId} = req.body
     const updatedPost = {
         id: req.params.id,
         title,
         shortDescription,
         content,
-        blogId,
-        blogName
+        blogId
     }
     const createdPost = PostRepository.updatePost(updatedPost)
     if(createdPost === 204){

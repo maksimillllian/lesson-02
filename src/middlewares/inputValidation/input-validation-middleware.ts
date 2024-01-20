@@ -7,7 +7,7 @@ export const InputValidationMiddleware = (req: Request, res: Response, next: Nex
         field: error.type === 'field' ? error.path : 'unknown'
     }))
     if(!formattedError.isEmpty()){
-        const errorMessage = formattedError.array({onlyFirstError: false})
+        const errorMessage = formattedError.array({onlyFirstError: true})
         res.status(400).send({errorsMessages: errorMessage})
         return;
     }

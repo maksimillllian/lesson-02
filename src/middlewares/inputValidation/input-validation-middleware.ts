@@ -8,7 +8,7 @@ export const InputValidationMiddleware = (req: Request, res: Response, next: Nex
     }))
     if(!formattedError.isEmpty()){
         const errorMessage = formattedError.array({onlyFirstError: true})
-        res.sendStatus(400).send({errorsMessages: errorMessage})
+        res.status(400).send({errorsMessages: errorMessage})
         return;
     }
     return next();

@@ -8,7 +8,7 @@ const titleValidator = body('title').isString().withMessage('title must be strin
 }).withMessage('Incorrect title')
 
 const shortDescriptionValidator = body('shortDescription').isString().withMessage('shortDescription must be string').trim().isLength({
-    min: 0,
+    min: 1,
     max: 100
 }).withMessage('Incorrect shortDescription')
 

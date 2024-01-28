@@ -1,45 +1,42 @@
-import {db} from "../db/db";
-
-
-type post = {
-    id: string,
-    title: string,
-    shortDescription: string,
-    content: string,
-    blogId: string,
-    blogName: string | undefined
-}
+import {InsertPostModel, OutputPostModel, OutputPostModelAlpha} from "../models/posts/output";
+import {blogsCollection, db, postsCollection} from "../db/db";
+import {blogMapper} from "../models/blog/mappers/blog-mappers";
+import {postMapper} from "../models/posts/postMapper";
+import {ObjectId, WithId} from "mongodb";
 
 export class PostRepository{
-    static getAll(){
-        return db.posts;
+    static async getAll(){
+        const posts = await postsCollection.find({}).toArray();
+        return posts.map(postMapper);
     }
-    static getById(id: string){
-        return db.posts.find((b) => b.id === id)
-
-    }
-    static createPost(post: post){
-        db.posts.push(post);
-        return post;
-    }
-    static deletePost(id: string) {
-        const indexToRemove = db.posts.findIndex((p) => p.id === id);
-
-        if (indexToRemove !== -1) {
-            db.posts.splice(indexToRemove, 1);
-            return 204;
-        } else {
-            return 404;
+    static async getById(id: string){
+        const post = await postsCollection.findOne({_id : new ObjectId()})
+        if(!post){
+            return null;
         }
+        return postMapper(post)
 
     }
+    static async createPost(post: WithId<OutputPostModel>){
+        const createPost = await postsCollection.insertOne(post)
+        return createPost.insertedId.toString()
+    }
+    static async deletePost(id: string) {
+        const post = await postsCollection.deleteOne({_id: new ObjectId(id)})
 
-    static updatePost(post: post){
-        const indexOfPost = db.posts.findIndex((p) => p.id === post.id);
-        if(indexOfPost === -1){
-            return 404
-        }
-        db.posts[indexOfPost] = post;
-        return 204
+        return !!post.deletedCount
+    }
+
+    static async updatePost(id: string,postInf: OutputPostModel){
+        const updatePost = await postsCollection.updateOne({_id: new ObjectId(id)}, {
+            $set: {
+                name: postInf.title,
+                shortDescription: postInf.shortDescription,
+                content: postInf.content,
+                blogId: postInf.blogId,
+                blogName: postInf.blogName
+            }
+        })
+        return !!updatePost.matchedCount;
     }
 }

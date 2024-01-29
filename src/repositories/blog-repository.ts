@@ -12,7 +12,7 @@ export class BlogRepository {
         return blogs.map(blogMapper);
     }
     static async getById(id: string): Promise<InsertBlogType | null> {
-        const blog = await blogsCollection.findOne({_id: new ObjectId()})
+        const blog = await blogsCollection.findOne({_id: new ObjectId(id)})
 
         if(!blog){
             return null;

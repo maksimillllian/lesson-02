@@ -3,3 +3,9 @@ export type InputBlogType = {
     description: string,
     websiteUrl: string,
 }
+export type InputBlogTypePost = {
+
+}
+export type InputBlogTypePut = {
+
+}

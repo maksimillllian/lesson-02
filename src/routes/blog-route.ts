@@ -26,7 +26,7 @@ blogRoute.post('/', authMiddleware, blogValidation(), async (req: Request, res: 
             _id: new ObjectId()
         };
 
-        const createdBlogId = await BlogRepository.createBlog(newBlog);
+        const createdBlogId: string = await BlogRepository.createBlog(newBlog);
 
         const blog = await BlogRepository.getById(createdBlogId);
 

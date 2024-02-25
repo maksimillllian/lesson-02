@@ -57,7 +57,7 @@ postRoute.put('/:id', authMiddleware, postValidation(), async (req: Request, res
         blogName: await BlogRepository.getNameById(blogId),
         createdAt: origin?.createdAt
     }
-    const createdPost = PostRepository.updatePost(req.params.id, updatedPost)
+    const createdPost = await PostRepository.updatePost(req.params.id, updatedPost)
     if(createdPost){
         res.status(204).send(createdPost)
     }else {

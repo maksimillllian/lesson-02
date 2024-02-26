@@ -30,7 +30,7 @@ export class PostRepository{
     static async updatePost(id: string,postInf: OutputPostModel){
         const updatePost = await postsCollection.updateOne({_id: new ObjectId(id)}, {
             $set: {
-                name: postInf.title,
+                title: postInf.title,
                 shortDescription: postInf.shortDescription,
                 content: postInf.content,
                 blogId: postInf.blogId,

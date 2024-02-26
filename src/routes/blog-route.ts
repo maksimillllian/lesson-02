@@ -16,14 +16,14 @@ blogRoute.get('/', async (req, res) => {
 blogRoute.post('/', authMiddleware, blogValidation(), async (req: Request, res: Response) => {
     try {
         const { name, description, websiteUrl } = req.body;
-        const newBlog: WithId<OutputBlogType> = {
+        const newBlog: OutputBlogType = {
+            _id: new ObjectId(),
             id: new Date().toISOString(),
             name,
             description,
             websiteUrl,
             isMembership: false,
-            createdAt: new Date().toISOString(),
-            _id: new ObjectId()
+            createdAt: new Date().toISOString()
         };
 
         const createdBlogId: string = await BlogRepository.createBlog(newBlog);

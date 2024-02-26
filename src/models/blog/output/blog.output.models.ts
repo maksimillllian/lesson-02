@@ -26,14 +26,14 @@ export type OutputBlogGetType = {
     createdAt: string
     isMembership: boolean
 }
-export type OutputBlogPostType = {
+export type OutputBlogPostType = WithId<{
     id: string
     name: string
     description: string
     websiteUrl: string
     createdAt: string
     isMembership: boolean
-}
+}>
 export type OutputBlogPutType = {
     id: string
     name: string

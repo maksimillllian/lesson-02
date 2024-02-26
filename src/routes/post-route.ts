@@ -26,8 +26,9 @@ postRoute.post('/', authMiddleware, postValidation(),async (req: Request, res: R
         _id: new ObjectId()
     }
     const createdPost = await PostRepository.createPost(newPost)
-    res.status(201).send(createdPost)
-
+    if(createdPost) {
+        res.status(201).send(newPost)
+    }
 })
 postRoute.get('/:id',async (req: Request, res: Response) => {
     const post = await PostRepository.getById(req.params.id)

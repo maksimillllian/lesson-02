@@ -69,7 +69,7 @@ postRoute.put('/:id', authMiddleware, postValidation(), async (req: Request, res
         res.sendStatus(404)
     }
 })
-postRoute.delete('/:id', authMiddleware,async (req: Request, res: Response) => {
+postRoute.delete('/:id', authMiddleware, async (req: Request, res: Response) => {
     const deletedPost = await PostRepository.deletePost(req.params.id)
     if(deletedPost){
         res.sendStatus(204)

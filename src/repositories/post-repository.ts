@@ -10,7 +10,7 @@ export class PostRepository{
         return posts.map(postMapper);
     }
     static async getById(id: string){
-        const post = await postsCollection.findOne({_id : new ObjectId()})
+        const post = await postsCollection.findOne({_id : new ObjectId(id)})
         if(!post){
             return null;
         }

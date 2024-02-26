@@ -32,7 +32,6 @@ postRoute.post('/', authMiddleware, postValidation(),async (req: Request, res: R
         return;
     }
     res.sendStatus(404);
-    return;
 
 })
 postRoute.get('/:id',async (req: Request, res: Response) => {

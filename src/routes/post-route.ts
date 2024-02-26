@@ -27,7 +27,7 @@ postRoute.post('/', authMiddleware, postValidation(),async (req: Request, res: R
     }
     const createdPost = await PostRepository.createPost(newPost)
     if(createdPost) {
-        let output: OutputPostModel = structuredClone(newPost)
+        const output: OutputPostModel = structuredClone(newPost)
         res.status(201).send(output)
     }
 })

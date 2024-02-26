@@ -18,7 +18,7 @@ const contentValidator = body('content').isString().withMessage('content must be
 }).withMessage('Incorrect content')
 
 const blogIdValidator = body('blogId').custom(async (value) => {
-    const blog = BlogRepository.getById(value);
+    const blog = await BlogRepository.getById(value);
 
     if(!blog){
         throw Error('Invalid blogId');
